@@ -1,6 +1,7 @@
 var utils = require('shipit-utils');
 var chalk = require('chalk');
 var sprintf = require('sprintf-js').sprintf;
+var Bluebird = require('bluebird');
 
 /**
  * Create required directories for linked files and dirs.
@@ -14,6 +15,8 @@ module.exports = function (gruntOrShipit) {
     var shipit = utils.getShipit(gruntOrShipit);
 
     function createDirs(paths, remote, isFile) {
+      if (!paths) return Bluebird.resolve();
+
       isFile = isFile || false;
       var method = remote ? 'remote' : 'local';
       var pathStr = paths.map(function(path) {

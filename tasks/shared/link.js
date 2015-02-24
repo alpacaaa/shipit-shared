@@ -36,6 +36,9 @@ module.exports = function (gruntOrShipit) {
 
   function linkDirs() {
     var shipit = utils.getShipit(gruntOrShipit);
+    if (!shipit.config.shared.dirs)
+      return Bluebird.resolve();
+
     var promises = shipit.config.shared.dirs.map(function(path) {
       link(path, false);
     });
@@ -48,6 +51,9 @@ module.exports = function (gruntOrShipit) {
 
   function linkFiles() {
     var shipit = utils.getShipit(gruntOrShipit);
+    if (!shipit.config.shared.files)
+      return Bluebird.resolve();
+
     var promises = shipit.config.shared.files.map(function(path) {
       link(path, true);
     });
